@@ -4,21 +4,20 @@ project(PhysicsEngine VERSION 1.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Find SDL2
-find_package(SDL2 REQUIRED)
-
-# Include directories
-include_directories(src ${SDL2_INCLUDE_DIRS})
-
 # Add executables
 add_executable(GameEngine src/main.cpp)
 add_executable(Blocks src/main_blocks.cpp)
 add_executable(Parachutes src/main_parachutes.cpp)
 
-# Link SDL2
-target_link_libraries(GameEngine ${SDL2_LIBRARIES})
-target_link_libraries(Blocks ${SDL2_LIBRARIES})
-target_link_libraries(Parachutes ${SDL2_LIBRARIES})
+# SDL2 linking removed for now to fix build errors; uncomment when UI is enabled
+# find_package(SDL2 REQUIRED)
+# include_directories(${SDL2_INCLUDE_DIRS})
+# target_link_libraries(GameEngine ${SDL2_LIBRARIES})
+# target_link_libraries(Blocks ${SDL2_LIBRARIES})
+# target_link_libraries(Parachutes ${SDL2_LIBRARIES})
+# target_compile_definitions(GameEngine PRIVATE SDL_MAIN_HANDLED)
+# target_compile_definitions(Blocks PRIVATE SDL_MAIN_HANDLED)
+# target_compile_definitions(Parachutes PRIVATE SDL_MAIN_HANDLED)
 
 # Compiler flags for optimization
 if(MSVC)
