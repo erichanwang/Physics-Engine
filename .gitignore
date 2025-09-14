@@ -1,0 +1,25 @@
+# Build directories
+build/
+CMakeFiles/
+*.exe
+*.dll
+
+# Output files
+*.ppm
+
+# Libraries
+libs/
+raylib/
+
+# Archives
+*.zip
+*.tar.gz
+
+# IDE
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+
+# OS
+Thumbs.db
+.DS_Store
