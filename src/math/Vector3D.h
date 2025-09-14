@@ -15,34 +15,16 @@ public:
         return Vector3D(x + v.x, y + v.y, z + v.z);
     }
 
-    Vector3D& operator+=(const Vector3D& v) {
-        x += v.x;
-        y += v.y;
-        z += v.z;
-        return *this;
-    }
-
     Vector3D operator-(const Vector3D& v) const {
         return Vector3D(x - v.x, y - v.y, z - v.z);
-    }
-
-    Vector3D operator-() const {
-        return Vector3D(-x, -y, -z);
-    }
-
-    Vector3D operator/(double s) const {
-        return Vector3D(x / s, y / s, z / s);
     }
 
     Vector3D operator*(double scalar) const {
         return Vector3D(x * scalar, y * scalar, z * scalar);
     }
 
-    Vector3D& operator*=(double scalar) {
-        x *= scalar;
-        y *= scalar;
-        z *= scalar;
-        return *this;
+    Vector3D operator/(double scalar) const {
+        return Vector3D(x / scalar, y / scalar, z / scalar);
     }
 
     double dot(const Vector3D& v) const {
@@ -68,5 +50,10 @@ public:
         return os;
     }
 };
+
+// Non-member operator* to allow double * Vector3D multiplication
+inline Vector3D operator*(double scalar, const Vector3D& v) {
+    return v * scalar;
+}
 
 #endif // VECTOR3D_H

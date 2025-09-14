@@ -1,34 +1,56 @@
-# 3D Game Engine in C++
+# 3D Game Engine
 
-This project is a 3D game engine written purely in C++ featuring:
+A pure C++ 3D game engine featuring ray tracing rendering and accurate physics simulation.
 
-- Ray tracing rendering for realistic lighting and shadows
-- Accurate physics simulation with real-world data values (gravity, air resistance)
-- Modular design with components for math, rendering, physics, and objects
-- Interactive player controls with mouse look, WASD movement, and jumping
-- Multiple example scenes including blocks and parachutes
-- Grid rendering for visual clarity
-- Build system using CMake
-- VSCode configuration for easy build and run with g++
+## Features
+
+- **Ray Tracing Renderer**: High-quality rendering with reflections, shadows, and materials.
+- **Physics Simulation**: Accurate physics with real-world data (gravity = 9.81 m/s²).
+- **Modular Architecture**: Organized into math, rendering, objects, and physics modules.
+- **SDL2 Integration**: Interactive GUI with keyboard and mouse controls.
+- **Cross-Platform**: Built with CMake for easy compilation on Windows, Linux, and macOS.
+
+## Requirements
+
+- C++17 compatible compiler (g++, clang++, MSVC)
+- CMake 3.10 or higher
+- SDL2 library
 
 ## Building
 
-Requires CMake and a C++17 compatible compiler (e.g., g++).
+1. Clone or download the project.
+2. Install SDL2:
+   - Windows: Download from https://www.libsdl.org/download-2.0.php
+   - Linux: `sudo apt-get install libsdl2-dev`
+   - macOS: `brew install sdl2`
+3. Create build directory: `mkdir build && cd build`
+4. Configure: `cmake ..`
+5. Build: `cmake --build .`
+6. Run: `./GameEngine` (or `GameEngine.exe` on Windows)
 
-```bash
-.\run.bat
-```
+## Usage
 
-This will build the project and run the executable.
+- **WASD**: Move camera
+- **Mouse**: Look around
+- **Space**: Jump (if physics enabled)
+- The engine renders a ray-traced scene with a sphere and displays it in an SDL2 window.
 
 ## Project Structure
 
-- `src/math`: Math utilities like vectors and rays
-- `src/rendering`: Ray tracer, camera, materials, scene management
-- `src/physics`: Physics engine and rigid body simulation
-- `src/objects`: 3D objects like spheres, blocks, planes, slopes, parachutes
-- `src`: Main entry points for different scenes
+- `src/math/`: Vector and ray math utilities
+- `src/rendering/`: Camera, materials, scene, and ray tracer
+- `src/objects/`: 3D objects like spheres
+- `src/physics/`: Physics engine and rigid bodies
+- `src/main.cpp`: Entry point with SDL2 loop
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contributing
+
+Feel free to submit issues and pull requests.
+
+## Author
+
+Eric Wang

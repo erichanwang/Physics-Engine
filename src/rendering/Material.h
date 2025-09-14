@@ -6,16 +6,12 @@
 class Material {
 public:
     Vector3D color;
-    double reflectivity;
-    double refractiveIndex;
-    bool isGrid;
-    Vector3D gridColor1;
-    Vector3D gridColor2;
-    double gridSize;
+    double diffuse;
+    double specular;
+    double shininess;
 
-    Material() : color(0,0,0), reflectivity(0.0), refractiveIndex(1.0), isGrid(false), gridColor1(0,0,0), gridColor2(0,0,0), gridSize(1.0) {}
-    Material(const Vector3D& col, double refl = 0.0, double refr = 1.0)
-        : color(col), reflectivity(refl), refractiveIndex(refr), isGrid(false), gridColor1(0,0,0), gridColor2(0,0,0), gridSize(1.0) {}
+    Material(const Vector3D& c = Vector3D(1,1,1), double d = 0.8, double s = 0.2, double sh = 10.0)
+        : color(c), diffuse(d), specular(s), shininess(sh) {}
 };
 
 #endif // MATERIAL_H

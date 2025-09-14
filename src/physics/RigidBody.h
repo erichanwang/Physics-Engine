@@ -8,23 +8,30 @@ public:
     Vector3D position;
     Vector3D velocity;
     Vector3D acceleration;
-    double mass;
-    double dragCoeff; // Drag coefficient for air resistance
+    double mass; // kg
+    double dragCoefficient;
+    bool isStatic;
 
-    RigidBody(const Vector3D& pos, double m, double drag = 0.0) : position(pos), velocity(0,0,0), acceleration(0,0,0), mass(m), dragCoeff(drag) {}
+    RigidBody() : position(), velocity(), acceleration(), mass(1.0), dragCoefficient(0.0), isStatic(false) {}
+    RigidBody(const Vector3D& pos, double m = 1.0) : position(pos), velocity(), acceleration(), mass(m), dragCoefficient(0.0), isStatic(false) {}
+    RigidBody(const Vector3D& pos, double m, double drag) : position(pos), velocity(), acceleration(), mass(m), dragCoefficient(drag), isStatic(false) {}
 
     void applyForce(const Vector3D& force) {
-        acceleration = acceleration + force / mass;
+        if (!isStatic) {
+            acceleration = acceleration + force * (1.0 / mass);
+        }
     }
 
     void update(double dt) {
-        // Apply drag force: F_drag = -dragCoeff * velocity
-        Vector3D dragForce = velocity * (-dragCoeff);
-        applyForce(dragForce);
-
-        velocity = velocity + acceleration * dt;
-        position = position + velocity * dt;
-        acceleration = Vector3D(0,0,0); // Reset acceleration
+        if (!isStatic) {
+            velocity = velocity + acceleration * dt;
+            position = position + velocity * dt;
+            acceleration = Vector3D(0, 0, 0); // Reset acceleration
+            // Apply drag
+            if (dragCoefficient > 0) {
+                velocity = velocity * (1 - dragCoefficient * dt);
+            }
+        }
     }
 };
 

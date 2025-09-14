@@ -1,1 +1,1 @@
-add_library(Rendering)
+add_library(Rendering RayTracer.cpp Camera.cpp)

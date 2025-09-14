@@ -11,9 +11,8 @@ class Block : public Object {
 public:
     Vector3D position;
     Vector3D size; // width, height, depth
-    Material material;
 
-    Block(const Vector3D& pos, const Vector3D& sz, const Material& mat) : position(pos), size(sz), material(mat) {}
+    Block(const Vector3D& pos, const Vector3D& sz, const Material& mat) : Object(mat), position(pos), size(sz) {}
 
     // Ray intersection with block (axis-aligned bounding box)
     bool intersect(const Ray& ray, double tMin, double tMax, HitRecord& rec) const override {
@@ -58,9 +57,22 @@ public:
 
         rec.t = t;
         rec.point = ray.at(t);
-        rec.normal = Vector3D(0, 1, 0); // Simple normal, assume top
+        rec.normal = getNormal(rec.point);
         rec.material = material;
         return true;
+    }
+
+    Vector3D getNormal(const Vector3D& point) const override {
+        Vector3D min = position - size * 0.5;
+        Vector3D max = position + size * 0.5;
+        double epsilon = 1e-6;
+        if (std::abs(point.x - min.x) < epsilon) return Vector3D(-1, 0, 0);
+        if (std::abs(point.x - max.x) < epsilon) return Vector3D(1, 0, 0);
+        if (std::abs(point.y - min.y) < epsilon) return Vector3D(0, -1, 0);
+        if (std::abs(point.y - max.y) < epsilon) return Vector3D(0, 1, 0);
+        if (std::abs(point.z - min.z) < epsilon) return Vector3D(0, 0, -1);
+        if (std::abs(point.z - max.z) < epsilon) return Vector3D(0, 0, 1);
+        return Vector3D(0, 1, 0); // default
     }
 };
 

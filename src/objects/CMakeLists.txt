@@ -1,1 +1,1 @@
-# Objects library is header-only, no compilation needed
+add_library(Objects Sphere.cpp)

@@ -29,9 +29,6 @@ int main() {
     // Camera
     Camera camera(Vector3D(0, 2, 10), 0, 0, 90, 16.0/9.0);
 
-    // RayTracer
-    RayTracer rayTracer(&scene, &camera);
-
     // Simulate physics and render
     int width = 800, height = 600;
     std::vector<Vector3D> image(width * height);
@@ -50,8 +47,11 @@ int main() {
             }
         }
 
+        // RayTracer
+        RayTracer rayTracer(scene, camera, width, height);
+
         // Render
-        rayTracer.render(scene, camera, width, height, image);
+        rayTracer.render(width, height, image);
 
         // Save or display
         std::string filename = "output_blocks_" + std::to_string(frame) + ".ppm";

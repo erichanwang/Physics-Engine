@@ -1,0 +1,45 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++17",
+                "-I${workspaceFolder}/src",
+                "${workspaceFolder}/src/main.cpp",
+                "${workspaceFolder}/src/rendering/RayTracer.cpp",
+                "${workspaceFolder}/src/objects/Sphere.cpp",
+                "${workspaceFolder}/src/physics/PhysicsEngine.cpp",
+                "${workspaceFolder}/src/physics/RigidBody.cpp",
+                "-o",
+                "${workspaceFolder}/GameEngine.exe"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "run",
+            "type": "shell",
+            "command": "${workspaceFolder}/GameEngine.exe",
+            "group": "test",
+            "dependsOn": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        }
+    ]
+}

@@ -12,9 +12,8 @@ class Parachute : public Object {
 public:
     Vector3D position;
     double radius;
-    Material material;
 
-    Parachute(const Vector3D& pos, double r, const Material& mat) : position(pos), radius(r), material(mat) {}
+    Parachute(const Vector3D& pos, double r, const Material& mat) : Object(mat), position(pos), radius(r) {}
 
     // Ray intersection with parachute (treated as sphere)
     bool intersect(const Ray& ray, double tMin, double tMax, HitRecord& rec) const override {
@@ -32,9 +31,13 @@ public:
         }
         rec.t = root;
         rec.point = ray.at(root);
-        rec.normal = (rec.point - position) / radius;
+        rec.normal = getNormal(rec.point);
         rec.material = material;
         return true;
+    }
+
+    Vector3D getNormal(const Vector3D& point) const override {
+        return (point - position).normalize();
     }
 };
 

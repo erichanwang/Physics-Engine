@@ -4,30 +4,24 @@
 #include <vector>
 #include "../objects/Object.h"
 #include "../physics/PhysicsEngine.h"
-#include "HitRecord.h"
+#include "../math/Vector3D.h"
 
 class Scene {
 public:
     std::vector<Object*> objects;
     PhysicsEngine physics;
+    Vector3D lightPosition;
+
+    Scene() : lightPosition(0, 10, 0) {}
 
     void addObject(Object* obj) {
         objects.push_back(obj);
     }
 
-    bool intersect(const Ray& ray, double tMin, double tMax, HitRecord& rec) const {
-        HitRecord tempRec;
-        bool hitAnything = false;
-        double closestSoFar = tMax;
-
-        for (const auto& object : objects) {
-            if (object->intersect(ray, tMin, closestSoFar, tempRec)) {
-                hitAnything = true;
-                closestSoFar = tempRec.t;
-                rec = tempRec;
-            }
+    ~Scene() {
+        for (auto obj : objects) {
+            delete obj;
         }
-        return hitAnything;
     }
 };
 

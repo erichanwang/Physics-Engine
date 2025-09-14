@@ -3,23 +3,29 @@
 
 #include <vector>
 #include "RigidBody.h"
-#include "../math/Vector3D.h"
 
 class PhysicsEngine {
 public:
     std::vector<RigidBody*> bodies;
-    const double gravity = 9.81; // m/s^2
+    Vector3D gravity;
+
+    PhysicsEngine() : gravity(0, -9.81, 0) {}
 
     void addBody(RigidBody* body) {
         bodies.push_back(body);
     }
 
-    void update(double dt) {
+    void simulate(double dt) {
         for (auto body : bodies) {
-            // Apply gravity
-            body->applyForce(Vector3D(0, -body->mass * gravity, 0));
-            body->update(dt);
+            if (!body->isStatic) {
+                body->applyForce(gravity * body->mass);
+                body->update(dt);
+            }
         }
+    }
+
+    void update(double dt) {
+        simulate(dt);
     }
 };
 
